@@ -104,6 +104,11 @@ def create_input_pipeline(input_queue, image_size, nrof_preprocess_threads, batc
     images_and_labels_list = []
     for _ in range(nrof_preprocess_threads):
         filenames, label, control = input_queue.dequeue()
+
+        print("filenames[0:5]",filenames[0:5])
+        print("label[0:5]",label[0:5])
+        print("control[0:5]",control[0:5])
+
         images = []
         for filename in tf.unstack(filenames):
             file_contents = tf.read_file(filename)
@@ -127,6 +132,10 @@ def create_input_pipeline(input_queue, image_size, nrof_preprocess_threads, batc
             image.set_shape(image_size + (3,))
             images.append(image)
         images_and_labels_list.append([images, label])
+
+        print("images[0:1]",images[0:1])
+        print("label[0:1]",label[0:1])
+
 
     image_batch, label_batch = tf.train.batch_join(
         images_and_labels_list, batch_size=batch_size_placeholder, 

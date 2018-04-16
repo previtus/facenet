@@ -1,0 +1,24 @@
+
+
+export PYTHONPATH=/WHEREVER/facenet/src
+
+use conda environment: source activate facenet_py2 ## SELF MADE
+
+# PREP only for LFW
+for N in {1..4}; do \
+python src/align/align_dataset_mtcnn.py \
+~/datasets/lfw/raw \
+~/datasets/lfw/lfw_mtcnnpy_160 \
+--image_size 160 \
+--margin 32 \
+--random_order \
+--gpu_memory_fraction 0.25 \
+& done
+
+# VALID on LFW
+python src/validate_on_lfw.py ~/datasets/lfw/lfw_mtcnnpy_160 ~/facenet/models/facenet/20180402-114759/ --distance_metric 1 --use_flipped_images --subtract_mean --use_fixed_image_standardization
+
+# VALID on our own dataset:
+~/facenet$ python src/validate_on_mydataset.py /WHEREDIDIPUTIT/celeba-hq-1024x1024_test_extract ~/facenet/models/facenet/20180402-114759/ --distance_metric 1 --use_flipped_images --subtract_mean --use_fixed_image_standardization
+
+#will save a (1, 30000, 1024) shaped as a list, load via load_my_dataset.py
