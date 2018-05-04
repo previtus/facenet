@@ -62,7 +62,7 @@ def main(args):
 
             # init paths:
             ## /home/kangeunsu/progressive_growing_of_gans/celeba-hq-1024x1024_test_extract/
-            args.lfw_dir = "/home/kangeunsu/progressive_growing_of_gans/celeba-hq-1024x1024_test_extract"
+            #args.lfw_dir = "/home/kangeunsu/progressive_growing_of_gans/celeba-hq-1024x1024_test_extract"
             # files like img00009982.png
             files = sorted(os.listdir(args.lfw_dir+"/"))
             frame_files = fnmatch.filter(files, '*.png')
